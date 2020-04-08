@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação sem título</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.2.0/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.2.0/tailwind.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="favicon5.ico">
+</head>
+<body>
+    
+
+    <div id="app" @mousemove="soltar">
+        <div class="header">
+            <div class="sprite logo ativoLogo pointer">
+ 
+            </div>
+            <h1 
+            @click="editarTitle" 
+            v-if="!editTitle" class="title">
+            <span>{{ document.title }}</span>
+        </h1>
+            <input type="text" 
+            v-if="editTitle" 
+            @blur="updateTitle" 
+            v-model="document.title"
+            @keyup.enter="updateTitle"
+            ref="title"
+            placeholder="Apresentação sem título">
+
+        <div class="edit">
+            <div class="center">
+                <div
+                @mouseenter="hover(icon)"
+                @mouseout="hoverEditCond = false"
+                class="sprite icon pointer" 
+                :class="icon.class" 
+                v-for="icon in editb"
+                @click="addObject(icon)"> 
+                </div>
+            </div>
+            <div class="hover" v-if="hoverEditCond" :style="{left: `${xA}px`, top: `${yA}px`}">
+                <span>{{ hoverEdit.hover }}</span>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="left slides">
+            <div class="sprite add"></div>
+            <br>
+            <div class="slide pointer"
+            v-for="slide in slides"
+            @click="slideAtual = slides.indexOf(slide)"
+            :class="{ativoSlide: slideAtual == slides.indexOf(slide)}">
+            <span class="count">{{ slides.indexOf(slide) + 1 }}</span>
+
+            <div style="width: 1200px;
+            height: 700px;
+            position: absolute;
+            left: -517px;
+            top: -298px;
+            transform: scale(0.13);
+            overflow: hidden;">
+            <div v-for="ob in slide.objects">
+                <h1 
+                class="absolute"
+                :style="{left: `${ob.x}px`, top: `${ob.y}px`}"
+                v-if="ob.type = 'h1' && ob.src == null">
+            {{ ob.title }}
+        </h1>
+        <div class="absolute"
+        :style="{left: `${ob.x}px`, top: `${ob.y}px`, backgroundImage: `url(${ob.src})`, width: `${ob.width}px`, height: `${ob.height}px`}"
+                v-if="ob.type = 'image' && ob.src !== null" :src="ob.src" alt=""
+                style="width: 200px; height: 200px;
+                background-size: cover;">
+            </div>
+            </div>
+
+            </div>
+        </div>
+
+        <div class="center watchSlide">
+            <div class="slidem" id="board">
+                <div v-for="ob in slides[slideAtual].objects">
+                <h1 
+                    class="absolute"
+                    :style="{left: `${ob.x}px`, top: `${ob.y}px`}"
+                    @mousedown="mover(ob)"
+                    @mouseup="soltei"
+                    @dblclick="edit(ob)"
+                    v-if="ob.type = 'h1' && ob.src == null">
+                <span v-if="!edited || edita !== ob">{{ ob.title }}
+                </span>
+                <input type="text" v-if="edited && edita == ob && ob.src == null" @blur="endEdit(ob)" @keyup.enter="endEdit(ob)" v-model="ob.title"> 
+                </h1>
+                <div class="absolute"
+                :style="{left: `${ob.x}px`, top: `${ob.y}px`, backgroundImage: `url(${ob.src})`, width: `${ob.width}px`, height: `${ob.height}px`}"
+                @mousedown="mover(ob)"
+                @mouseup="soltei"
+                @dblclick="edit(ob)"
+                v-if="ob.type = 'image' && ob.src !== null" :src="ob.src" alt=""
+                style="width: 200px; height: 200px;
+                background-size: cover;">
+                <input style="position: absolute; background: #fff;top: 43px;
+                width: 50px;
+                right: 0px;" type="text" v-if="edited && edita == ob && ob.src !== null" @blur="endEditImg(ob)" @keyup.enter="endEditImg(ob)" v-model="ob.width">
+                <input style="position: absolute; background: #fff;top: 43px;
+                left: 0px;
+                width: 50px;" type="text" v-if="edited && edita == ob && ob.src !== null" @blur="endEditImg(ob)" @keyup.enter="endEditImg(ob)" v-model="ob.height">
+                <input style="position: absolute; background: #fff;" type="text" v-if="edited && edita == ob && ob.src !== null" @blur="endEditImg(ob)" @keyup.enter="endEditImg(ob)" v-model="ob.src"> 
+                </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
