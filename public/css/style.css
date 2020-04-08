@@ -87,6 +87,10 @@ body{
     border: 1px solid #dadce0;
 }
 
+input{
+    border: 1px solid #dadce0;
+}
+
 .header input{
     border: 1px solid #dadce0;
     transform: scale(0.87);
