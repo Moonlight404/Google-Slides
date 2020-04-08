@@ -89,6 +89,9 @@ body{
 
 .header input{
     border: 1px solid #dadce0;
+    transform: scale(0.87);
+    left: -14px;
+    position: relative;
 }
 
 .sprite{
@@ -228,7 +231,7 @@ body{
 
 .header .center{
     position: relative;
-    margin: 0px auto;
+    margin: -6px auto;
     max-width: 90%;
 }
 
@@ -273,4 +276,13 @@ body{
 img{
     user-select: none;
     border: none;
+}
+
+.numberInput{
+    border: 1px solid #dadce0;
+    width: 50px;
+    height: 29px;
+    top: -9px;
+    position: relative;
+    padding: 0px;
 }

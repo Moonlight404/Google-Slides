@@ -10,7 +10,8 @@ const app = new Vue({
         },
         x: 0,
         y: 0,
-        edita: {},
+        edita: {"fontSize": null},
+        editandoOb: 0,
         edited: false,
         slides: [
             {
@@ -80,6 +81,7 @@ const app = new Vue({
         },
         edit(ob){
             this.edita = ob
+            this.editandoOb = this.slides[this.slideAtual].objects.indexOf(ob)
             this.edited = true
         },
         endEdit(ob){
@@ -93,6 +95,7 @@ const app = new Vue({
                 }
                 this.edited = false
             }
+            this.edita = {"fontSize": null}
         },
         deleteObject(e){
             if(this.edited){
@@ -112,6 +115,7 @@ const app = new Vue({
                 "type": who.type,
                 "title": 'Insira algo',
                 "x": 10,
+                "fontSize": 52,
                 "src": null,
                 "y": 10
             }

@@ -40,6 +40,13 @@
                 v-for="icon in editb"
                 @click="addObject(icon)"> 
                 </div>
+                <div
+                @mouseenter="hover({'hover': 'Tamanho da fonte'})"
+                @mouseout="hoverEditCond = false"
+                v-if="edita.fontSize !== null"
+                >
+                <input v-model="slides[slideAtual].objects[editandoOb].fontSize" class="numberInput" type="number" placeholder="0"> 
+                </div>
             </div>
             <div class="hover" v-if="hoverEditCond" :style="{left: `${xA}px`, top: `${yA}px`}">
                 <span>{{ hoverEdit.hover }}</span>
@@ -67,7 +74,7 @@
             <div v-for="ob in slide.objects">
                 <h1 
                 class="absolute"
-                :style="{left: `${ob.x}px`, top: `${ob.y}px`}"
+                :style="{left: `${ob.x}px`, top: `${ob.y}px`, fontSize: `${ob.fontSize}px`}"
                 v-if="ob.type = 'h1' && ob.src == null">
             {{ ob.title }}
         </h1>
@@ -87,7 +94,7 @@
                 <div v-for="ob in slides[slideAtual].objects">
                 <h1 
                     class="absolute"
-                    :style="{left: `${ob.x}px`, top: `${ob.y}px`}"
+                    :style="{left: `${ob.x}px`, top: `${ob.y}px`, fontSize: `${ob.fontSize}px`}"
                     @mousedown="mover(ob)"
                     @mouseup="soltei"
                     @dblclick="edit(ob)"
