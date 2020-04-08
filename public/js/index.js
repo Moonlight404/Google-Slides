@@ -51,6 +51,13 @@ const app = new Vue({
         editarTitle(){
             this.editTitle = true
         },
+        mudarSlide(slide){
+            this.edited = false
+            this.edita = {"fontSize": null}
+            setTimeout(() => {
+                this.slideAtual = this.slides.indexOf(slide)
+            }, 200);
+        },
         updateTitle(){
             if(this.document.title.length >= 1){
                 console.log("Insira algo")
@@ -121,11 +128,14 @@ const app = new Vue({
             }
             this.slides[this.slideAtual].objects.push(object)
             } else if(who.type == 'newSlide'){
-                this.slides.push({
-                    "id": this.slides.length,
-                    "objects": [
-                    ]
-                })
+                this.edited = false
+                this.edita = {"fontSize": null}
+                setTimeout(() => {
+                    this.slides.push({
+                        "id": this.slides.length,
+                        "objects": []
+                    }) 
+                }, 200);
                 this.slideAtual = this.slides.length - 1
             } else if(who.type == 'image'){
                 const object = {

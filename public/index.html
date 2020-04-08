@@ -60,7 +60,7 @@
             <br>
             <div class="slide pointer"
             v-for="slide in slides"
-            @click="slideAtual = slides.indexOf(slide)"
+            @click="mudarSlide(slide)"
             :class="{ativoSlide: slideAtual == slides.indexOf(slide)}">
             <span class="count">{{ slides.indexOf(slide) + 1 }}</span>
 
